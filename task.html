@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مهمة عملية: إدارة المنتجات</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Tajawal', sans-serif;
+        }
+        .task-card {
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+        .code-block {
+            direction: ltr;
+            text-align: left;
+            font-family: monospace;
+            background-color: #1e293b;
+            color: #e2e8f0;
+            border-radius: 8px;
+            padding: 1rem;
+            overflow-x: auto;
+            font-size: 0.9rem;
+        }
+        .step-number {
+            background-color: #4f46e5;
+            color: white;
+            border-radius: 50%;
+            width: 2rem;
+            height: 2rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+    </style>
+</head>
+<body class="bg-stone-100 text-stone-800">
+
+    <div class="container mx-auto max-w-4xl px-4 py-8 md:py-12">
+        
+        <header class="text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-bold text-indigo-600">🚀 مهمة عملية: إدارة المنتجات</h1>
+            <p class="mt-4 text-lg text-stone-600">لتطبيق كل ما تعلمناه عن الـ Objects، الـ Arrays، والـ Operators.</p>
+        </header>
+
+        <main>
+            <div class="task-card">
+                <h2 class="text-2xl font-bold mb-4">🎯 الهدف</h2>
+                <p class="text-stone-700">بناء "قائمة جرد" بسيطة لمحل إلكتروني صغير باستخدام المفاهيم التي درسناها.</p>
+                
+            </div>
+
+            <div class="task-card">
+                <h2 class="text-2xl font-bold mb-6">📋 الخطوات</h2>
+                <div class="space-y-8">
+                    <!-- Step 1 -->
+                    <div class="flex items-start gap-4">
+                        <span class="step-number">1</span>
+                        <div>
+                            <h3 class="text-xl font-semibold mb-2">إنشاء المنتجات (Objects)</h3>
+                            <p class="mb-3 text-stone-600">أنشئ 3 متغيرات، كل متغير عبارة عن `object` يمثل منتجاً. كل منتج يجب أن يحتوي على الخصائص التالية: `name` (اسم), `price` (سعر), و `inStock` (متوفر).</p>
+                            <p class="mb-2 font-medium">مثال لأول منتج:</p>
+                            <pre class="code-block"><code>const product1 = {
+  name: "Gaming Mouse",
+  price: 750,
+  inStock: true
+};</code></pre>
+                        </div>
+                    </div>
+                    <!-- Step 2 -->
+                    <div class="flex items-start gap-4">
+                        <span class="step-number">2</span>
+                        <div>
+                            <h3 class="text-xl font-semibold mb-2">تجميع المنتجات (Array)</h3>
+                            <p class="mb-3 text-stone-600">أنشئ `array` جديد اسمه `inventory` وضع فيه الـ 3 `objects` التي أنشأتها.</p>
+                        </div>
+                    </div>
+                    <!-- Step 3 -->
+                    <div class="flex items-start gap-4">
+                        <span class="step-number">3</span>
+                        <div>
+                            <h3 class="text-xl font-semibold mb-2">عرض بيانات منتج</h3>
+                            <p class="mb-3 text-stone-600">باستخدام `console.log()`، اطبع اسم المنتج <strong>الثاني</strong> في القائمة، وسعر المنتج <strong>الأول</strong>.</p>
+                        </div>
+                    </div>
+                    <!-- Step 4 -->
+                    <div class="flex items-start gap-4">
+                        <span class="step-number">4</span>
+                        <div>
+                            <h3 class="text-xl font-semibold mb-2">التحقق من منتج</h3>
+                            <p class="mb-3 text-stone-600">اكتب سطرين كود للتحقق من المنتج <strong>الثالث</strong>:</p>
+                            <ul class="list-disc pr-5 space-y-2 text-stone-600">
+                                <li><strong>السطر الأول:</strong> تحقق هل سعر المنتج <strong>أقل من 1000</strong>؟ (اطبع `true` أو `false`).</li>
+                                <li><strong>السطر الثاني:</strong> تحقق هل المنتج متوفر في المخزون؟ (اطبع قيمة `inStock` مباشرة).</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="task-card bg-amber-50 border-amber-300">
+                <h2 class="text-2xl font-bold mb-4 text-amber-800">🏆 تحدي إضافي (Bonus)</h2>
+                <ul class="list-disc pr-5 space-y-2 text-amber-700">
+                    <li>تخيل أن سعر المنتج الأول زاد بمقدار 50. استخدم معامل إسناد لتحديث السعر.</li>
+                    <li>بعد التحديث، اطبع الـ `object` الكامل للمنتج الأول للتأكد من أن السعر قد تغير.</li>
+                </ul>
+            </div>
+            
+            <div class="task-card">
+                <h2 class="text-2xl font-bold mb-4">🖥️ شكل المخرجات المتوقعة في الـ Console</h2>
+                <p class="mb-3 text-stone-600">يجب أن تكون المخرجات في الـ Console مشابهة للتالي (القيم والأسماء قد تختلف):</p>
+                <pre class="code-block bg-slate-700"><code>Keyboard
+750
+true
+false
+{ name: 'Gaming Mouse', price: 800, inStock: true }</code></pre>
+            </div>
+
+            <div class="text-center mt-8">
+                <button id="solution-btn" onclick="toggleSolution()" class="bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700 transition-transform transform hover:scale-105">
+                    إظهار الحل
+                </button>
+                <div id="solution" class="mt-6 hidden">
+                    <div class="task-card">
+                         <h2 class="text-2xl font-bold mb-4">الحل المقترح</h2>
+                         <pre class="code-block"><code>// Step 1: Create Products
+const product1 = {
+  name: "Gaming Mouse",
+  price: 750,
+  inStock: true
+};
+
+const product2 = {
+  name: "Keyboard",
+  price: 1200,
+  inStock: false
+};
+
+const product3 = {
+  name: "Webcam",
+  price: 950,
+  inStock: true
+};
+
+// Step 2: Create Inventory Array
+const inventory = [product1, product2, product3];
+
+// Step 3: Display Product Data
+console.log(inventory[1].name); // "Keyboard"
+console.log(inventory[0].price); // 750
+
+// Step 4: Check Product
+console.log(inventory[2].price < 1000); // true
+console.log(inventory[2].inStock);      // true
+
+// Bonus Challenge
+inventory[0].price += 50;
+console.log(inventory[0]); // { name: 'Gaming Mouse', price: 800, inStock: true }
+</code></pre>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+        
+        <footer class="text-center mt-12 text-stone-500">
+            <p>بالتوفيق يا أبطال، ولو لديكم أي سؤال لا تترددوا!</p>
+        </footer>
+    </div>
+
+    <script>
+        function toggleSolution() {
+            const solutionDiv = document.getElementById('solution');
+            const solutionBtn = document.getElementById('solution-btn');
+            const isHidden = solutionDiv.classList.contains('hidden');
+
+            if (isHidden) {
+                solutionDiv.classList.remove('hidden');
+                solutionBtn.textContent = 'إخفاء الحل';
+            } else {
+                solutionDiv.classList.add('hidden');
+                solutionBtn.textContent = 'إظهار الحل';
+            }
+        }
+    </script>
+</body>
+</html>
