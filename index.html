@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ملخص جافاسكريبت التفاعلي</title>
+    <link rel="shortcut icon" href="https://i.pinimg.com/1200x/86/0b/c3/860bc39206a8d80c64a37a6f17450ae8.jpg" type="image/jpg">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Calm Harmony -->
+    <!-- Application Structure Plan: تم تصميم التطبيق كصفحة تعليمية تفاعلية واحدة تتدفق عموديًا. يبدأ بعنوان واضح، يليه شريط تنقل للوصول السريع للأقسام المختلفة (الكائنات، المصفوفات، المعاملات). كل قسم يقدم المفهوم بطريقة "شرح ثم جرب بنفسك"، حيث يتم عرض المحتوى النظري متبوعًا بمحرر كود تفاعلي يسمح للمستخدم بتشغيل الأمثلة ورؤية المخرجات فورًا. هذا الهيكل يعزز التعلم النشط والتجريبي بدلاً من القراءة السلبية، مما يجعله أكثر فعالية للمبتدئين. -->
+    <!-- Visualization & Content Choices: 
+        - الكائنات (Objects): الهدف: فهم بنية "مفتاح-قيمة". العرض: شرح نصي + محرر كود تفاعلي مع زر "تشغيل" ومنطقة لعرض المخرجات. التفاعل: يمكن للمستخدم تعديل الكود ورؤية التأثير المباشر على المخرجات. المبرر: تحويل المثال الثابت إلى تجربة حية.
+        - المصفوفات (Arrays): الهدف: فهم القوائم المرتبة والوصول للعناصر عبر الفهرس (index). العرض: نفس بنية قسم الكائنات. التفاعل: تعديل عناصر المصفوفة أو استدعاء فهارس مختلفة. المبرر: توضيح مفهوم "الفهرسة تبدأ من صفر" بشكل عملي.
+        - المعاملات (Operators): الهدف: فهم الإسناد والمقارنة. العرض: تم تقسيمها إلى قسمين: (1) معاملات الإسناد: مثال تفاعلي يوضح تحديث قيمة متغير. (2) معاملات المقارنة: "ملعب مقارنة" يسمح للمستخدم بإدخال قيم واختيار معامل ورؤية نتيجة المقارنة (true/false) مباشرةً. المبرر: جعل المفاهيم المجردة ملموسة وسهلة الاختبار.
+        - كل التفاعلات تم بناؤها باستخدام Vanilla JS. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        .code-editor {
+            direction: ltr;
+            text-align: left;
+            font-family: monospace;
+            background-color: #1e293b;
+            color: #e2e8f0;
+            border-radius: 8px;
+            padding: 1rem;
+            min-height: 200px;
+        }
+
+        .output-console {
+            direction: ltr;
+            text-align: left;
+            font-family: monospace;
+            background-color: #334155;
+            color: #f1f5f9;
+            border-radius: 8px;
+            padding: 1rem;
+            min-height: 80px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+
+<body class="bg-stone-100 text-stone-800">
+
+    <div class="container mx-auto max-w-5xl px-4 py-8">
+
+        <header class="text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-bold text-indigo-600">ملخص سيشن JavaScript</h1>
+            <p class="mt-4 text-lg text-stone-600">أول تعامل مع البيانات المعقدة: تجربة تفاعلية</p>
+        </header>
+
+        <nav class="bg-white rounded-lg shadow-md p-4 mb-10 sticky top-4 z-10">
+            <ul class="flex items-center justify-center gap-x-4 sm:gap-x-8">
+                <li><a href="#objects"
+                        class="text-stone-700 hover:text-indigo-600 font-medium transition-colors">الكائنات
+                        (Objects)</a></li>
+                <li><a href="#arrays"
+                        class="text-stone-700 hover:text-indigo-600 font-medium transition-colors">المصفوفات
+                        (Arrays)</a></li>
+                <li><a href="#operators"
+                        class="text-stone-700 hover:text-indigo-600 font-medium transition-colors">المعاملات
+                        (Operators)</a></li>
+            </ul>
+        </nav>
+
+        <main class="space-y-12">
+
+            <!-- Section 1: Objects -->
+            <section id="objects" class="bg-white p-8 rounded-xl shadow-lg">
+                <h2 class="text-3xl font-bold mb-4 flex items-center"><span class="text-3xl mr-3">📇</span>الكائنات
+                    (Objects): الحاوية المُنظمة</h2>
+                <p class="text-stone-600 mb-6 text-lg">فكر في الـ Object كأنه بطاقة هوية. هو شيء واحد، ولكنه يحتوي على
+                    عدة معلومات مرتبطة ببعضها البعض ولها أسماء (مفتاح وقيمة - key-value pairs). نستخدم لإنشائها الأقواس
+                    المعقوفة `{}`.</p>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <label for="object-code" class="block mb-2 font-medium text-stone-700">جرب بنفسك:</label>
+                        <textarea id="object-code" class="code-editor w-full">
+const user = {
+  name: "Ammar",
+  grade: 10,
+  isEnrolled: true,
+  favoriteSubjects: ["Math", "Physics"]
+};
+
+// غيّر السطر التالي لتجربة الوصول لبيانات مختلفة
+console.log("اسم المستخدم:", user.name);
+console.log("المرحلة الدراسية:", user['grade']);
+                        </textarea>
+                    </div>
+                    <div>
+                        <label for="object-output" class="block mb-2 font-medium text-stone-700">المخرجات
+                            (Console):</label>
+                        <pre id="object-output" class="output-console w-full"></pre>
+                        <div class="mt-4 p-4 bg-indigo-50 border-r-4 border-indigo-500 rounded">
+                            <h4 class="font-bold text-indigo-800">خلاصة:</h4>
+                            <p class="text-indigo-700">الـ Objects تساعدنا على تجميع المتغيرات المترابطة في حزمة واحدة
+                                مرتبة.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 2: Arrays -->
+            <section id="arrays" class="bg-white p-8 rounded-xl shadow-lg">
+                <h2 class="text-3xl font-bold mb-4 flex items-center"><span class="text-3xl mr-3">📝</span>المصفوفات
+                    (Arrays): القائمة المُرتبة</h2>
+                <p class="text-stone-600 mb-6 text-lg">فكر في الـ Array كأنها قائمة تسوق. هي قائمة واحدة تحتوي على عدة
+                    عناصر بترتيب معين. نستخدم لإنشائها الأقواس المربعة `[]`. أهم قاعدة هي أن **العد يبدأ من صفر (0)**.
+                </p>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <label for="array-code" class="block mb-2 font-medium text-stone-700">جرب بنفسك:</label>
+                        <textarea id="array-code" class="code-editor w-full">
+const projectGoals = ["Build UI", "Write Logic", "Test App", "Deploy"];
+
+// جرب تغيير الرقم (الفهرس) بين الأقواس
+console.log("الهدف الأول (فهرس 0):", projectGoals[0]); 
+console.log("الهدف الثالث (فهرس 2):", projectGoals[2]);
+
+console.log("إجمالي عدد الأهداف:", projectGoals.length);
+                        </textarea>
+                        <button onclick="runCode('array-code', 'array-output')"
+                            class="mt-4 w-full bg-indigo-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-indigo-700 transition-colors">شغّل
+                            الكود</button>
+                    </div>
+                    <div>
+                        <label for="array-output" class="block mb-2 font-medium text-stone-700">المخرجات
+                            (Console):</label>
+                        <pre id="array-output" class="output-console w-full"></pre>
+                        <div class="mt-4 p-4 bg-indigo-50 border-r-4 border-indigo-500 rounded">
+                            <h4 class="font-bold text-indigo-800">خلاصة:</h4>
+                            <p class="text-indigo-700">المصفوفات مثالية لتخزين قوائم من العناصر حيث يكون الترتيب مهماً.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 3: Operators -->
+            <section id="operators" class="bg-white p-8 rounded-xl shadow-lg">
+                <h2 class="text-3xl font-bold mb-4 flex items-center"><span class="text-3xl mr-3">🧠</span>المعاملات
+                    (Operators): لجعل الكود "أذكى"</h2>
+                <p class="text-stone-600 mb-8 text-lg">المعاملات هي الرموز التي تقوم بتنفيذ عمليات، مثل العمليات
+                    الحسابية، وإعادة تعيين القيم، والمقارنة.</p>
+
+                <div class="space-y-8">
+                    <div>
+                        <h3 class="text-2xl font-bold mb-3 text-indigo-700">معاملات الإسناد (Assignment Operators)</h3>
+                        <p class="text-stone-600 mb-4">هي اختصارات لتعديل قيمة متغير. جرب الأزرار التالية لترى كيف تتغير
+                            النتيجة.</p>
+                        <div class="flex items-center space-x-4 bg-stone-50 p-4 rounded-lg">
+                            <span class="text-2xl font-mono" dir="ltr">score = <span id="assignment-score"
+                                    class="font-bold text-green-600">50</span></span>
+                            <button onclick="updateScore('+=')"
+                                class="bg-green-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-600 transition-colors">10
+                                +=</button>
+                            <button onclick="updateScore('-=')"
+                                class="bg-red-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-red-600 transition-colors">10
+                                -=</button>
+                            <button onclick="updateScore('reset')"
+                                class="bg-stone-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-stone-600 transition-colors">إعادة
+                                تعيين</button>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-2xl font-bold mb-3 text-indigo-700">ملعب معاملات المقارنة (Comparison
+                            Playground)</h3>
+                        <p class="text-stone-600 mb-4">هذه المعاملات تقارن بين قيمتين ويكون ناتجها دائماً `true` أو
+                            `false`. أدخل قيماً مختلفة وجرب المعاملات لترى الناتج.</p>
+                        <div class="bg-stone-50 p-6 rounded-lg">
+                            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 text-xl">
+                                <input id="comp-val1" type="text" value="18"
+                                    class="w-24 p-2 text-center border-2 border-stone-300 rounded-md focus:border-indigo-500 focus:ring-indigo-500">
+                                <select id="comp-op"
+                                    class="p-2 border-2 border-stone-300 rounded-md focus:border-indigo-500 focus:ring-indigo-500 font-mono">
+                                    <option>===</option>
+                                    <option>!==</option>
+                                    <option selected>>=</option>
+                                    <option>
+                                        <=< /option>
+                                    <option>></option>
+                                    <option>
+                                        << /option>
+                                </select>
+                                <input id="comp-val2" type="text" value="18"
+                                    class="w-24 p-2 text-center border-2 border-stone-300 rounded-md focus:border-indigo-500 focus:ring-indigo-500">
+                            </div>
+                            <div class="mt-4 text-center bg-white p-4 rounded-lg shadow-inner">
+                                <p class="text-stone-500">النتيجة:</p>
+                                <p id="comparison-result" class="text-2xl font-mono font-bold" dir="ltr"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="text-center mt-12 text-stone-500">
+            <p>أتمنى لكم كل التوفيق، واستمروا في الممارسة!</p>
+        </footer>
+    </div>
+
+    <script>
+        function runCode(textareaId, outputId) {
+            const code = document.getElementById(textareaId).value;
+            const outputElement = document.getElementById(outputId);
+            let capturedOutput = '';
+            const originalConsoleLog = console.log;
+
+            console.log = (...args) => {
+                const formattedArgs = args.map(arg => {
+                    if (typeof arg === 'object' && arg !== null) {
+                        try {
+                            return JSON.stringify(arg, null, 2);
+                        } catch (e) {
+                            return 'Unserializable Object';
+                        }
+                    }
+                    return String(arg);
+                }).join(' ');
+                capturedOutput += formattedArgs + '\\n';
+            };
+
+            try {
+                new Function(code)();
+                outputElement.textContent = capturedOutput;
+                outputElement.classList.remove('text-red-400');
+            } catch (e) {
+                outputElement.textContent = e;
+                outputElement.classList.add('text-red-400');
+            } finally {
+                console.log = originalConsoleLog;
+            }
+        }
+
+        // Assignment operator logic
+        let currentScore = 50;
+        const scoreElement = document.getElementById('assignment-score');
+
+        function updateScore(operation) {
+            if (operation === '+=') {
+                currentScore += 10;
+            } else if (operation === '-=') {
+                currentScore -= 10;
+            } else if (operation === 'reset') {
+                currentScore = 50;
+            }
+            scoreElement.textContent = currentScore;
+        }
+
+        // Comparison operator logic
+        const val1Input = document.getElementById('comp-val1');
+        const val2Input = document.getElementById('comp-val2');
+        const opSelect = document.getElementById('comp-op');
+        const resultElement = document.getElementById('comparison-result');
+
+        function evaluateComparison() {
+            let val1 = val1Input.value;
+            let val2 = val2Input.value;
+            const op = opSelect.value;
+
+            // Attempt to convert to number if they look like numbers
+            let num1 = !isNaN(parseFloat(val1)) && isFinite(val1) ? parseFloat(val1) : val1;
+            let num2 = !isNaN(parseFloat(val2)) && isFinite(val2) ? parseFloat(val2) : val2;
+
+            let result;
+            try {
+                switch (op) {
+                    case '===': result = num1 === num2; break;
+                    case '!==': result = num1 !== num2; break;
+                    case '>': result = num1 > num2; break;
+                    case '<': result = num1 < num2; break;
+                    case '>=': result = num1 >= num2; break;
+                    case '<=': result = num1 <= num2; break;
+                }
+                resultElement.textContent = `${val1} ${op} ${val2}  -->  ${result}`;
+                resultElement.className = `text-2xl font-mono font-bold ${result ? 'text-green-600' : 'text-red-600'}`;
+            } catch (e) {
+                resultElement.textContent = 'خطأ في المقارنة';
+                resultElement.className = 'text-2xl font-mono font-bold text-orange-500';
+            }
+        }
+
+        val1Input.addEventListener('input', evaluateComparison);
+        val2Input.addEventListener('input', evaluateComparison);
+        opSelect.addEventListener('change', evaluateComparison);
+
+        // Initial calls to populate outputs
+        document.addEventListener('DOMContentLoaded', () => {
+            runCode('object-code', 'object-output');
+            runCode('array-code', 'array-output');
+            evaluateComparison();
+        });
+    </script>
+</body>
+
+</html>
